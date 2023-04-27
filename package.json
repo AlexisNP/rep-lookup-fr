@@ -12,7 +12,6 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.4",
     "@vueuse/core": "^10.1.0",
-    "geojson-geometries-lookup": "^0.5.0",
     "pinia": "^2.0.35",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
