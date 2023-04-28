@@ -5,7 +5,7 @@ import Navbar from "./components/navbar/Navbar.vue";
 <template>
   <div id="wrapper">
     <Navbar />
-    <div id="content">
+    <div class="flex justify-center items-center">
       <RouterView />
     </div>
   </div>
