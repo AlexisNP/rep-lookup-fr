@@ -59,20 +59,17 @@ const regionBgFile = computed(
   () =>
     `regions/${String(repMandate.value?.election?.lieu.region)
       .toLocaleLowerCase()
-      .replace(" ", "-")}.svg`
+      .replace(/\s/g, "-")}.svg`
 );
 </script>
 
 <template>
-  <section class="py-8 md:py-0">
-    <header
-      :style="`background-image: url(/${regionBgFile}); background-position: center;`"
-      class="bg-contain bg-no-repeat"
-    >
+  <section class="py-8 md:py-0 w-96 max-w-full">
+    <header class="relative">
       <div class="text-center">
         <small class="text-base font-bold"> Votre député·e est... </small>
       </div>
-      <figure class="mt-4 mx-auto w-60 h-60 rounded-full overflow-hidden">
+      <figure class="mt-4 mx-auto w-44 h-44 rounded-full overflow-hidden">
         <img
           :src="repImage"
           :alt="repFullName"
@@ -87,6 +84,11 @@ const regionBgFile = computed(
         {{ repMandate?.election?.lieu.departement }} -
         {{ repMandate?.election?.lieu.numCirco }}e circonscription
       </h2>
+
+      <img
+        :src="regionBgFile"
+        class="absolute top-0 left-0 w-full h-full object-contain select-none -z-20 pointer-events-none"
+      />
     </header>
 
     <h3 class="mt-2 text-center font-medium text-lg">
@@ -107,7 +109,7 @@ const regionBgFile = computed(
       </div>
 
       <menu
-        class="mt-4 flex flex-col gap-y-4 md:flex-row md:gap-x-3 md:gap-y-0"
+        class="mt-4 flex flex-col gap-y-4 md:justify-center md:flex-row md:gap-x-3 md:gap-y-0"
       >
         <li v-if="repTwitter">
           <RepButton
