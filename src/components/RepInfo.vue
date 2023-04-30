@@ -25,35 +25,52 @@ const repMandate = computed(() => {
   return parliamentMandate;
 });
 
-const repSocials = {
-  twitter: computed(() =>
-    props.rep.acteur.adresses.adresse.find(
-      (adr) => adr["typeLibelle"] === "Twitter"
-    )
-  ),
-  facebook: computed(() =>
-    props.rep.acteur.adresses.adresse.find(
-      (adr) => adr["typeLibelle"] === "Facebook"
-    )
-  ),
-  instagram: computed(() =>
-    props.rep.acteur.adresses.adresse.find(
-      (adr) => adr["typeLibelle"] === "Instagram"
-    )
-  ),
-  linkedin: computed(() =>
-    props.rep.acteur.adresses.adresse.find(
-      (adr) => adr["typeLibelle"] === "Linkedin"
-    )
-  ),
-};
+const repTwitter = computed(() =>
+  props.rep.acteur.adresses.adresse.find(
+    (adr) => adr["typeLibelle"] === "Twitter"
+  )
+);
+const repFacebook = computed(() => {
+  const data = props.rep.acteur.adresses.adresse.find(
+    (adr) => adr["typeLibelle"] === "Facebook"
+  );
+  if (data) {
+    data.valElec = String(data.valElec).replace(/^(.*[\\/])/, "");
+  }
+  return data;
+});
+const repInstagram = computed(() => {
+  const data = props.rep.acteur.adresses.adresse.find(
+    (adr) => adr["typeLibelle"] === "Instagram"
+  );
+  return data;
+});
+const repLinkedin = computed(() => {
+  const data = props.rep.acteur.adresses.adresse.find(
+    (adr) => adr["typeLibelle"] === "Linkedin"
+  );
+  if (data) {
+    data.valElec = String(data.valElec).replace(/^(.*[\\/])/, "");
+  }
+  return data;
+});
+
+const regionBgFile = computed(
+  () =>
+    `regions/${String(repMandate.value?.election?.lieu.region)
+      .toLocaleLowerCase()
+      .replace(" ", "-")}.svg`
+);
 </script>
 
 <template>
-  <section>
-    <header>
+  <section class="py-8 md:py-0">
+    <header
+      :style="`background-image: url(/${regionBgFile}); background-position: center;`"
+      class="bg-contain bg-no-repeat"
+    >
       <div class="text-center">
-        <small class="text-base font-bold"> Votre député est... </small>
+        <small class="text-base font-bold"> Votre député·e est... </small>
       </div>
       <figure class="mt-4 mx-auto w-60 h-60 rounded-full overflow-hidden">
         <img
@@ -70,10 +87,11 @@ const repSocials = {
         {{ repMandate?.election?.lieu.departement }} -
         {{ repMandate?.election?.lieu.numCirco }}e circonscription
       </h2>
-      <h3 class="mt-2 text-center font-medium text-lg">
-        {{ rep.acteur.profession.libelleCourant }}
-      </h3>
     </header>
+
+    <h3 class="mt-2 text-center font-medium text-lg">
+      {{ rep.acteur.profession.libelleCourant }}
+    </h3>
 
     <footer class="mt-8">
       <div class="mt-4 text-center">
@@ -88,10 +106,12 @@ const repSocials = {
         </RepButton>
       </div>
 
-      <menu class="mt-2 flex justify-center items-center gap-4">
-        <li v-if="repSocials.twitter">
+      <menu
+        class="mt-4 flex flex-col gap-y-4 md:flex-row md:gap-x-3 md:gap-y-0"
+      >
+        <li v-if="repTwitter">
           <RepButton
-            :href="`https://twitter.com/${repSocials.twitter.value?.valElec}`"
+            :href="`https://twitter.com/${repTwitter.valElec}`"
             target="_blank"
             rel="noopener"
             :style="'btn-twitter'"
@@ -101,9 +121,9 @@ const repSocials = {
           </RepButton>
         </li>
 
-        <li v-if="repSocials.facebook">
+        <li v-if="repFacebook">
           <RepButton
-            :href="`https://www.facebook.com/${repSocials.facebook.value?.valElec}`"
+            :href="`https://www.facebook.com/${repFacebook.valElec}`"
             target="_blank"
             rel="noopener"
             :style="'btn-facebook'"
@@ -113,9 +133,9 @@ const repSocials = {
           </RepButton>
         </li>
 
-        <li v-if="repSocials.linkedin">
+        <li v-if="repLinkedin">
           <RepButton
-            :href="`https://www.linkedin.com/${repSocials.linkedin.value?.valElec}`"
+            :href="`https://www.linkedin.com/${repLinkedin.valElec}`"
             target="_blank"
             rel="noopener"
             :style="'btn-linkedin'"
@@ -125,9 +145,9 @@ const repSocials = {
           </RepButton>
         </li>
 
-        <li v-if="repSocials.instagram">
+        <li v-if="repInstagram">
           <RepButton
-            :href="`https://www.instagram.com/${repSocials.instagram.value?.valElec}`"
+            :href="`https://www.instagram.com/${repInstagram.valElec}`"
             target="_blank"
             rel="noopener"
             :style="'btn-instagram'"

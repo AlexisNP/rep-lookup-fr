@@ -20,7 +20,7 @@ const elementTag = computed(() => (props.href ? "a" : "button"));
   <component
     :is="elementTag"
     v-bind="props"
-    class="py-[10px] px-4 my-1 inline-flex text-white items-center gap-2 rounded-md font-semibold tracking-wide outline-2 outline-offset-4 focus-visible:outline transition-colors"
+    class="w-full md:w-max py-[10px] px-4 flex md:inline-flex text-white justify-center items-center gap-2 rounded-md font-semibold tracking-wide outline-2 outline-offset-4 focus-visible:outline transition-colors"
     :class="props.style"
   >
     <slot />

@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  @apply text-slate-300 bg-slate-950
+  @apply text-slate-100 bg-slate-950
 }
 
 @layer components {
