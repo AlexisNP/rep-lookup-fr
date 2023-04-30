@@ -5,5 +5,23 @@
 @tailwind utilities;
 
 body {
-  @apply text-slate-300 bg-slate-950
+  @apply text-slate-100 bg-slate-950
+}
+
+@layer components {
+  .btn-red {
+    @apply bg-red-600 outline-red-700 hover:bg-red-700
+  }
+  .btn-twitter {
+    @apply bg-twitter-500 outline-twitter-600 hover:bg-twitter-600
+  }
+  .btn-facebook {
+    @apply bg-facebook-500 outline-facebook-600 hover:bg-facebook-600
+  }
+  .btn-instagram {
+    @apply bg-instagram-500 outline-instagram-600 hover:bg-instagram-600
+  }
+  .btn-linkedin {
+    @apply bg-linkedin-500 outline-linkedin-600 hover:bg-linkedin-600
+  }
 }

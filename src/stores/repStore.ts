@@ -1,11 +1,25 @@
+import type { Depute } from "@/models/rep";
 import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export const useCirStore = defineStore("repStore", () => {
-  async function getRep(lon: number, lat: number): Promise<any> {
-    return fetch(`http://localhost:3000/rep?lat=${lat}&lon=${lon}`).then((t) =>
-      t.json()
-    );
+const apiUrl = import.meta.env.VITE_API_URL;
+
+export const useRepStore = defineStore("repStore", () => {
+  const currentRep = ref<Depute | null>(null);
+
+  async function getRep(lon: number, lat: number): Promise<Depute> {
+    return fetch(`${apiUrl}/rep?lat=${lat}&lon=${lon}`).then(async (res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw res.json().then((res) => new Error(res.message));
+      }
+    });
   }
 
-  return { getRep };
+  function setRep(rep: Depute) {
+    currentRep.value = rep;
+  }
+
+  return { getRep, setRep, currentRep };
 });

@@ -1,33 +1,42 @@
 <script lang="ts" setup>
-import { useCirStore } from "@/stores/repStore";
-import { useGeolocation } from "@vueuse/core";
-import { ref } from "vue";
+import GeolocRequest from "@/components/GeolocRequest.vue";
+import RepInfo from "@/components/RepInfo.vue";
+import { useRepStore } from "@/stores/repStore";
+import { storeToRefs } from "pinia";
 
-const { coords } = useGeolocation();
-const { getRep } = useCirStore();
-
-const currentRepValue = ref<any>();
-
-async function handleGeolocClick() {
-  currentRepValue.value = await getRep(
-    coords.value.longitude,
-    coords.value.latitude
-  );
-}
+const { currentRep } = storeToRefs(useRepStore());
 </script>
 
 <template>
   <div>
     <main class="container py-4">
-      <button
-        class="py-2 px-4 rounded-sm bg-white text-sm text-slate-950"
-        @click="handleGeolocClick"
-      >
-        Trouver mon député
-      </button>
-      <pre>
-        {{ currentRepValue }}
-      </pre>
+      <Transition name="fade" mode="out-in">
+        <GeolocRequest v-if="!currentRep" />
+        <Suspense v-else>
+          <RepInfo :rep="currentRep" />
+        </Suspense>
+      </Transition>
     </main>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-to {
+  opacity: 1;
+}
+.fade-enter-active {
+  transition: all 0.3s ease;
+}
+.fade-leave-from {
+  opacity: 1;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-leave-active {
+  transition: all 0.3s ease;
+}
+</style>
