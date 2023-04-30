@@ -8,9 +8,13 @@ export const useRepStore = defineStore("repStore", () => {
   const currentRep = ref<Depute | null>(null);
 
   async function getRep(lon: number, lat: number): Promise<Depute> {
-    return fetch(`${apiUrl}/rep?lat=${lat}&lon=${lon}`)
-      .then((t) => t.json())
-      .catch((err) => console.log(err));
+    return fetch(`${apiUrl}/rep?lat=${lat}&lon=${lon}`).then(async (res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw res.json().then((res) => new Error(res.message));
+      }
+    });
   }
 
   function setRep(rep: Depute) {

@@ -15,7 +15,11 @@ import {
   faLinkedin,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import { faLandmark, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLandmark,
+  faLocationDot,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 
 library.add(
   faTwitter,
@@ -23,7 +27,8 @@ library.add(
   faLinkedin,
   faInstagram,
   faLandmark,
-  faLocationDot
+  faLocationDot,
+  faSpinner
 );
 
 const app = createApp(App);
