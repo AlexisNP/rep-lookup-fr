@@ -1,0 +1,13 @@
+{
+    "name": "Mon d\u00e9put\u00e9",
+    "short_name": "Mon d\u00e9put\u00e9",
+    "icons": [
+        {
+            "src": "/public/android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#020617",
+    "background_color": "#020617"
+}
