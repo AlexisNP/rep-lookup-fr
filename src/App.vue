@@ -4,7 +4,6 @@ import Navbar from "./components/navbar/Navbar.vue";
 
 <template>
   <div id="wrapper">
-    <Navbar />
     <div class="flex justify-center items-center">
       <RouterView />
     </div>
@@ -17,6 +16,6 @@ import Navbar from "./components/navbar/Navbar.vue";
   min-height: 100vh;
 
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
 }
 </style>
