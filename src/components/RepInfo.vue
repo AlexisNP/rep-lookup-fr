@@ -52,7 +52,10 @@ const repSocials = {
 <template>
   <section>
     <header>
-      <figure class="mt-8 mx-auto w-60 h-60 rounded-full overflow-hidden">
+      <div class="text-center">
+        <small class="text-base font-bold"> Votre député est... </small>
+      </div>
+      <figure class="mt-4 mx-auto w-60 h-60 rounded-full overflow-hidden">
         <img
           :src="repImage"
           :alt="repFullName"

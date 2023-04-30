@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import Navbar from "./components/navbar/Navbar.vue";
-</script>
-
 <template>
   <div id="wrapper">
     <div class="flex justify-center items-center">

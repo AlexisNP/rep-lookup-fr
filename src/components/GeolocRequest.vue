@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { useRepStore } from "@/stores/repStore";
 import { useGeolocation } from "@vueuse/core";
+import RepButton from "./RepButton.vue";
 
 const { coords } = useGeolocation();
 const { getRep, setRep } = useRepStore();
@@ -12,10 +13,13 @@ async function handleGeolocClick() {
 </script>
 
 <template>
-  <button
-    class="py-2 px-4 rounded-sm bg-white text-sm text-slate-950"
-    @click="handleGeolocClick"
-  >
-    Trouver mon député
-  </button>
+  <section class="text-center">
+    <header class="mb-4">
+      <h1 class="mt-4 text-center font-bold text-3xl">Trouver mon député</h1>
+    </header>
+    <RepButton @click="handleGeolocClick" :style="'btn-red'">
+      <font-awesome-icon :icon="['fass', 'location-dot']" size="lg" />
+      <span>Géolocalisation</span>
+    </RepButton>
+  </section>
 </template>
