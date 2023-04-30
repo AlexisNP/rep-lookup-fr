@@ -15,7 +15,9 @@ async function handleGeolocClick() {
 <template>
   <section class="text-center">
     <header class="mb-4">
-      <h1 class="mt-4 text-center font-bold text-3xl">Trouver mon député</h1>
+      <h1 class="mt-4 text-center font-bold text-3xl">
+        Qui me représente à l'Assemblée Nationale ?
+      </h1>
     </header>
     <RepButton @click="handleGeolocClick" :style="'btn-red'">
       <font-awesome-icon :icon="['fass', 'location-dot']" size="lg" />
