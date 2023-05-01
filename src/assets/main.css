@@ -10,7 +10,7 @@ body {
 
 @layer components {
   .btn-red {
-    @apply bg-red-600 outline-red-700 hover:bg-red-700
+    @apply bg-red-600 outline-red-700 hover:bg-red-700 disabled:bg-slate-400 disabled:outline-slate-400 disabled:hover:bg-slate-400
   }
   .btn-twitter {
     @apply bg-twitter-500 outline-twitter-600 hover:bg-twitter-600

@@ -19,6 +19,8 @@ import {
   faLandmark,
   faLocationDot,
   faSpinner,
+  faSquare,
+  faSquareCheck,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -28,7 +30,9 @@ library.add(
   faInstagram,
   faLandmark,
   faLocationDot,
-  faSpinner
+  faSpinner,
+  faSquare,
+  faSquareCheck
 );
 
 const app = createApp(App);

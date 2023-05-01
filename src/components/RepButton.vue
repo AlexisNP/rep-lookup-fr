@@ -11,6 +11,7 @@ const props = defineProps<{
     | "btn-facebook"
     | "btn-instagram"
     | "btn-linkedin";
+  disabled?: boolean;
 }>();
 
 const elementTag = computed(() => (props.href ? "a" : "button"));
