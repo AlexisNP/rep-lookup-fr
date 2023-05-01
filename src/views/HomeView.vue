@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import GeolocRequest from "@/components/GeolocRequest.vue";
+import RepForm from "@/components/RepForm.vue";
 import RepInfo from "@/components/RepInfo.vue";
 import { useRepStore } from "@/stores/repStore";
 import { storeToRefs } from "pinia";
@@ -11,7 +11,7 @@ const { currentRep } = storeToRefs(useRepStore());
   <div>
     <main class="container py-4">
       <Transition name="fade" mode="out-in">
-        <GeolocRequest v-if="!currentRep" />
+        <RepForm v-if="!currentRep" />
         <Suspense v-else>
           <RepInfo :rep="currentRep" />
         </Suspense>
