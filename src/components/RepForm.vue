@@ -30,7 +30,6 @@ onMounted(() => {
 
 function acceptGeoloc() {
   navigator.permissions.query({ name: "geolocation" }).then((result) => {
-    console.log(result.state);
     if (result.state === "granted" || result.state === "prompt") {
       hasAcceptedGeoloc.value = true;
       hasRefusedGeoloc.value = false;
