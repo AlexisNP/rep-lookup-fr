@@ -20,7 +20,7 @@ const repFullName = computed(
 
 const repMandate = computed(() => {
   const parliamentMandate = props.rep.acteur.mandats.mandat.find(
-    (mandate) => mandate["@xsi:type"] === "MandatParlementaire_type"
+    (mandate) => mandate.typeOrgane === "ASSEMBLEE"
   );
   return parliamentMandate;
 });
@@ -55,12 +55,20 @@ const repLinkedin = computed(() => {
   return data;
 });
 
-const regionBgFile = computed(
-  () =>
-    `regions/${String(repMandate.value?.election?.lieu.region)
+const regionBgFile = computed(() => {
+  if (
+    repMandate.value?.election?.lieu.departement ===
+    "Français établis hors de France"
+  ) {
+    return `regions/fr-etranger-${String(
+      repMandate.value?.election?.lieu.numCirco
+    )}.svg`;
+  } else {
+    return `regions/${String(repMandate.value?.election?.lieu.region)
       .toLocaleLowerCase()
-      .replace(/\s/g, "-")}.svg`
-);
+      .replace(/\s/g, "-")}.svg`;
+  }
+});
 </script>
 
 <template>
