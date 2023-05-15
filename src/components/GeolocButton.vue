@@ -41,6 +41,13 @@ async function handleGeolocClick() {
     />
     <span>Géolocalisation</span>
   </RepButton>
+  <div
+    v-if="!lastError && coords.accuracy > 1000"
+    class="mt-4 max-w-lg mx-auto text-sm text-red-400"
+  >
+    Position peu précise ; votre député sera peut être différement de notre
+    résultat
+  </div>
   <div v-if="lastError" class="mt-4 max-w-lg mx-auto text-sm text-red-400">
     {{ lastError }}
   </div>

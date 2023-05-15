@@ -1,12 +1,27 @@
 <script lang="ts" setup>
+import type { Organisation } from "@/models/org";
 import RepButton from "./RepButton.vue";
 
 import type { Depute } from "@/models/rep";
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const props = defineProps<{
   rep: Depute;
 }>();
+
+const politicalPartyId = props.rep.acteur.mandats.mandat.find(
+  (m) => m.typeOrgane === "GP" && !m.dateFin
+)?.organes.organeRef;
+
+const repPoliticalParty = ref<Organisation | null>(null);
+
+onMounted(async () => {
+  repPoliticalParty.value = await fetch(
+    `${apiUrl}/org?id=${politicalPartyId}`
+  ).then((t) => t.json());
+});
 
 const repImage = computed(() => {
   const imageRef = props.rep.acteur.uid["#text"].replace("PA", "");
@@ -88,6 +103,10 @@ const regionBgFile = computed(() => {
       <h1 class="mt-4 text-center font-bold text-3xl">
         {{ repFullName }}
       </h1>
+      <div class="text-center text-xl font-bold" v-if="repPoliticalParty">
+        {{ repPoliticalParty.organe.libelle }}
+      </div>
+      <hr class="my-5 opacity-10" />
       <h2 class="text-center font-bold text-xl">
         {{ repMandate?.election?.lieu.departement }} -
         {{ repMandate?.election?.lieu.numCirco }}e circonscription
@@ -99,7 +118,7 @@ const regionBgFile = computed(() => {
       />
     </header>
 
-    <h3 class="mt-2 text-center font-medium text-lg">
+    <h3 class="text-center font-medium text-lg">
       {{ rep.acteur.profession.libelleCourant }}
     </h3>
 
