@@ -103,11 +103,14 @@ const regionBgFile = computed(() => {
       <h1 class="mt-4 text-center font-bold text-3xl">
         {{ repFullName }}
       </h1>
-      <div class="text-center text-xl font-bold" v-if="repPoliticalParty">
+      <div
+        v-if="repPoliticalParty"
+        class="text-center font-bold"
+        :style="`color: ${repPoliticalParty.organe.couleurAssociee}`"
+      >
         {{ repPoliticalParty.organe.libelle }}
       </div>
-      <hr class="my-5 opacity-10" />
-      <h2 class="text-center font-bold text-xl">
+      <h2 class="mt-2 text-center font-bold text-xl">
         {{ repMandate?.election?.lieu.departement }} -
         {{ repMandate?.election?.lieu.numCirco }}e circonscription
       </h2>
@@ -117,10 +120,6 @@ const regionBgFile = computed(() => {
         class="absolute top-0 left-0 w-full h-full object-contain select-none -z-20 pointer-events-none"
       />
     </header>
-
-    <h3 class="text-center font-medium text-lg">
-      {{ rep.acteur.profession.libelleCourant }}
-    </h3>
 
     <footer class="mt-8">
       <div class="mt-4 text-center">
