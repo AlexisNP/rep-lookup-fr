@@ -1,12 +1,27 @@
 <script lang="ts" setup>
+import type { Organisation } from "@/models/org";
 import RepButton from "./RepButton.vue";
 
 import type { Depute } from "@/models/rep";
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const props = defineProps<{
   rep: Depute;
 }>();
+
+const politicalPartyId = props.rep.acteur.mandats.mandat.find(
+  (m) => m.typeOrgane === "GP" && !m.dateFin
+)?.organes.organeRef;
+
+const repPoliticalParty = ref<Organisation | null>(null);
+
+onMounted(async () => {
+  repPoliticalParty.value = await fetch(
+    `${apiUrl}/org?id=${politicalPartyId}`
+  ).then((t) => t.json());
+});
 
 const repImage = computed(() => {
   const imageRef = props.rep.acteur.uid["#text"].replace("PA", "");
@@ -88,7 +103,14 @@ const regionBgFile = computed(() => {
       <h1 class="mt-4 text-center font-bold text-3xl">
         {{ repFullName }}
       </h1>
-      <h2 class="text-center font-bold text-xl">
+      <div
+        v-if="repPoliticalParty"
+        class="text-center font-bold"
+        :style="`color: ${repPoliticalParty.organe.couleurAssociee}`"
+      >
+        {{ repPoliticalParty.organe.libelle }}
+      </div>
+      <h2 class="mt-2 text-center font-bold text-xl">
         {{ repMandate?.election?.lieu.departement }} -
         {{ repMandate?.election?.lieu.numCirco }}e circonscription
       </h2>
@@ -98,10 +120,6 @@ const regionBgFile = computed(() => {
         class="absolute top-0 left-0 w-full h-full object-contain select-none -z-20 pointer-events-none"
       />
     </header>
-
-    <h3 class="mt-2 text-center font-medium text-lg">
-      {{ rep.acteur.profession.libelleCourant }}
-    </h3>
 
     <footer class="mt-8">
       <div class="mt-4 text-center">
